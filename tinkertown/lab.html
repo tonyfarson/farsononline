@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tinkertown — Tony Farson</title>
+<meta name="description" content="Tinkertown (Tinmachi — 錬町). Tony Farson's personal technical village. A production-disciplined private cloud and homelab with dual network zones, enterprise documentation, and local AI inference.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:        #0B1628;
+  --surface:   #101E36;
+  --surface2:  #162240;
+  --border:    #1E2F50;
+  --text:      #DDE4F0;
+  --muted:     #7A90B4;
+  --accent:    #4A80DC;
+  --accent2:   #C4973A;
+  --white:     #F0F4FC;
+  --font-d:    'Fraunces', Georgia, serif;
+  --font-b:    'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-m:    'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-b);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--white); }
+
+/* ── NAV ──────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(11, 22, 40, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: var(--font-m);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+}
+.nav-brand span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+
+/* ── PAGE HERO ────────────────────────────────────────────────────── */
+.page-hero {
+  padding: 120px 2rem 5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.hero-logo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-logo {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+  mix-blend-mode: lighten;
+  filter: drop-shadow(0 0 32px rgba(196,151,58,0.18));
+  transition: filter 0.3s;
+}
+.hero-logo:hover {
+  filter: drop-shadow(0 0 52px rgba(196,151,58,0.36));
+}
+
+.hero-text {}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  transition: color 0.2s;
+}
+.back-link::before { content: '←'; }
+.back-link:hover { color: var(--accent); }
+
+.page-label {
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.page-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.page-title {
+  font-family: var(--font-d);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+.page-title em {
+  font-style: italic;
+  color: var(--accent2);
+}
+
+.page-intro {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 680px;
+  line-height: 1.85;
+  margin-bottom: 3.5rem;
+}
+.page-intro strong { color: var(--text); font-weight: 500; }
+
+/* ── STATS ROW ────────────────────────────────────────────────────── */
+.stats-row {
+  display: flex;
+  gap: 3.5rem;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  padding-top: 2.5rem;
+}
+
+.stat-item .stat-n {
+  font-family: var(--font-d);
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-item .stat-l {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── SECTION COMMON ───────────────────────────────────────────────── */
+section {
+  padding: 5rem 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--font-d);
+  font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.section-intro {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 640px;
+  line-height: 1.85;
+  margin-bottom: 3rem;
+}
+
+/* ── ARCHITECTURE DIAGRAM ─────────────────────────────────────────── */
+.diagram-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+  overflow-x: auto;
+}
+
+/* ── PHILOSOPHY STRIP ─────────────────────────────────────────────── */
+.philosophy-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  padding: 5rem 2rem;
+}
+.philosophy-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.philosophy-quote {
+  font-family: var(--font-d);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.5;
+  border-left: 4px solid var(--accent);
+  padding-left: 2rem;
+  margin-bottom: 2rem;
+}
+
+.philosophy-sub {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 640px;
+  line-height: 1.85;
+  margin-bottom: 2.5rem;
+}
+
+.philosophy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.philosophy-item {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+}
+.philosophy-item h4 {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--accent2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.philosophy-item h4::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--accent2);
+}
+.philosophy-item p {
+  font-size: 0.875rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* ── TECH STACK ───────────────────────────────────────────────────── */
+.stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.stack-group {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 1.75rem;
+  transition: border-color 0.2s;
+}
+.stack-group:hover { border-color: var(--muted); }
+
+.stack-group-label {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--accent2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.stack-group-label::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--accent2);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 3px 9px;
+  letter-spacing: 0.06em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.tag:hover { color: var(--text); border-color: var(--muted); }
+.tag.hi {
+  color: var(--accent);
+  border-color: rgba(74,128,220,0.4);
+}
+
+/* ── DOCUMENTATION FEATURE ────────────────────────────────────────── */
+.doc-feature {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent2);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.doc-feature::before {
+  content: 'KMS';
+  position: absolute;
+  right: -18px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: var(--font-m);
+  font-size: 80px;
+  font-weight: 500;
+  color: rgba(196, 151, 58, 0.04);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.doc-intro-label {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--accent2);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.doc-intro-text {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 640px;
+  margin-bottom: 2rem;
+}
+.doc-intro-text strong { color: var(--text); font-weight: 500; }
+
+.doc-tier-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.doc-tier {
+  border: 1px solid var(--border);
+  padding: 1.25rem;
+}
+.doc-tier-n {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.doc-tier-label {
+  font-family: var(--font-d);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 0.4rem;
+}
+.doc-tier-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+footer .footer-brand {
+  font-family: var(--font-m);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+footer .footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+footer .footer-links a {
+  font-size: 13px;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+footer .footer-links a:hover { color: var(--white); }
+
+/* ── ANIMATIONS ───────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-hero .back-link    { animation: fadeUp 0.5s ease both; }
+.page-hero .hero-logo    { animation: fadeUp 0.6s ease 0.05s both; }
+.page-hero .page-label   { animation: fadeUp 0.5s ease 0.1s both; }
+.page-hero .page-title   { animation: fadeUp 0.6s ease 0.15s both; }
+.page-hero .page-intro   { animation: fadeUp 0.6s ease 0.25s both; }
+.page-hero .stats-row    { animation: fadeUp 0.6s ease 0.35s both; }
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .nav-links { display: none; }
+  .stats-row { gap: 2rem; }
+  footer { flex-direction: column; text-align: center; }
+  .diagram-wrap { padding: 1.25rem 0.75rem; }
+  .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .hero-logo { max-width: 220px; margin: 0 auto; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-brand"><span>farson</span>online.com</a>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/#work">Work</a></li>
+    <li><a href="/#ideas">Ideas</a></li>
+    <li><a href="https://linkedin.com/in/tonyfarson" target="_blank">LinkedIn</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <a href="/" class="back-link">Back to home</a>
+
+  <div class="hero-grid">
+
+    <!-- LOGO -->
+    <div class="hero-logo-wrap">
+      <img src="/assets/tinmachi-logo.png" alt="Tinmachi logo" class="hero-logo">
+    </div>
+
+    <!-- TEXT -->
+    <div class="hero-text">
+      <div class="page-label">Private Infrastructure</div>
+      <h1 class="page-title">Tinker<em>town</em></h1>
+
+      <!-- Etymology callout -->
+      <div style="
+        font-family: var(--font-m);
+        font-size: 11px;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+        border-left: 2px solid var(--accent2);
+        padding: 0.6rem 1rem;
+        margin-bottom: 1.75rem;
+        line-height: 1.7;
+      ">
+        Formally: <span style="color:var(--accent2)">Tinmachi — 錬町</span><br>
+        <span style="opacity:0.75;">Machi (町, <em>town</em>) + Tinkā (ティンカー, <em>tinker</em>). My technical village.</span>
+      </div>
+
+      <p class="page-intro">
+        A privately operated, production-disciplined private cloud and homelab — built from the ground up with dual segregated network zones, enterprise-grade tooling, and the same documentation standards I apply in production environments. <strong>Not a hobby project. A second job that doesn't page me at 3am.</strong>
+      </p>
+
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-n">~25</div>
+          <div class="stat-l">Active infrastructure nodes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n">3</div>
+          <div class="stat-l">Proxmox hypervisors</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n">2</div>
+          <div class="stat-l">Segregated network zones</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-n">12+</div>
+          <div class="stat-l">Self-hosted services</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ARCHITECTURE -->
+<section>
+  <div class="section-label">Architecture</div>
+  <h2 class="section-title">Dual-zone, firewall-enforced</h2>
+  <p class="section-intro">Two physically separated network zones with explicit inter-zone policy. No implicit trust. Every service placed deliberately. A Tailscale mesh overlay provides secure management access across zones without punching holes in the firewall.</p>
+
+  <div class="diagram-wrap">
+    <svg viewBox="0 0 860 400" xmlns="http://www.w3.org/2000/svg"
+         style="width:100%;max-width:860px;display:block;margin:0 auto;"
+         font-family="'JetBrains Mono', monospace">
+
+      <defs>
+        <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#2A3F62"/>
+        </marker>
+        <marker id="arr-b" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#4A80DC" opacity="0.5"/>
+        </marker>
+      </defs>
+
+      <!-- INTERNET -->
+      <rect x="330" y="10" width="200" height="36" rx="2" fill="#0B1628" stroke="#1E2F50" stroke-width="1"/>
+      <text x="430" y="33" text-anchor="middle" fill="#7A90B4" font-size="10.5" letter-spacing="1.5">INTERNET / WAN</text>
+
+      <!-- WAN → Firewall -->
+      <line x1="430" y1="46" x2="430" y2="82" stroke="#2A3F62" stroke-width="1" marker-end="url(#arr)"/>
+
+      <!-- FIREWALL -->
+      <rect x="265" y="82" width="330" height="52" rx="2" fill="#101E36" stroke="#4A80DC" stroke-width="1.5"/>
+      <text x="430" y="106" text-anchor="middle" fill="#DDE4F0" font-size="11.5" letter-spacing="0.5">OPNsense Firewall</text>
+      <text x="430" y="123" text-anchor="middle" fill="#7A90B4" font-size="9" letter-spacing="0.5">HAProxy · Unbound DNS · ACME · Starlink Failover</text>
+
+      <!-- FW → Apex -->
+      <line x1="330" y1="134" x2="185" y2="172" stroke="#2A3F62" stroke-width="1" marker-end="url(#arr)"/>
+      <!-- FW → Monarch -->
+      <line x1="530" y1="134" x2="675" y2="172" stroke="#2A3F62" stroke-width="1" marker-end="url(#arr)"/>
+
+      <!-- APEX DMZ -->
+      <rect x="20" y="172" width="330" height="188" rx="2" fill="#090F1D" stroke="#1E2F50" stroke-width="1" stroke-dasharray="5,3"/>
+      <text x="38" y="192" fill="#4A80DC" font-size="9" letter-spacing="2.5">APEX DMZ</text>
+
+      <!-- Apex: hypervisors -->
+      <rect x="36" y="200" width="132" height="30" rx="1" fill="#101E36" stroke="#1E2F50" stroke-width="1"/>
+      <text x="102" y="219" text-anchor="middle" fill="#DDE4F0" font-size="9.5">Hypervisors ×2</text>
+
+      <!-- Apex: docker -->
+      <rect x="180" y="200" width="148" height="30" rx="1" fill="#101E36" stroke="#1E2F50" stroke-width="1"/>
+      <text x="254" y="219" text-anchor="middle" fill="#DDE4F0" font-size="9.5">Docker Host</text>
+
+      <!-- Apex: services row 1 -->
+      <rect x="36" y="244" width="292" height="28" rx="1" fill="#0B1628" stroke="#1E2F50" stroke-width="1"/>
+      <text x="182" y="262" text-anchor="middle" fill="#7A90B4" font-size="8.5">Nextcloud · Outline · ONLYOFFICE · draw.io</text>
+
+      <!-- Apex: services row 2 -->
+      <rect x="36" y="284" width="138" height="28" rx="1" fill="#0B1628" stroke="#1E2F50" stroke-width="1"/>
+      <text x="105" y="302" text-anchor="middle" fill="#7A90B4" font-size="8.5">Ansible · PDM</text>
+
+      <rect x="186" y="284" width="142" height="28" rx="1" fill="#0B1628" stroke="#1E2F50" stroke-width="1"/>
+      <text x="257" y="302" text-anchor="middle" fill="#7A90B4" font-size="8.5">Backrest / Restic</text>
+
+      <!-- Apex: monitoring -->
+      <rect x="36" y="324" width="292" height="24" rx="1" fill="#0B1628" stroke="#1E2F50" stroke-width="1"/>
+      <text x="182" y="340" text-anchor="middle" fill="#7A90B4" font-size="8.5">Netdata · Monitoring across all nodes</text>
+
+      <!-- MONARCH LAN -->
+      <rect x="510" y="172" width="330" height="188" rx="2" fill="#090F1D" stroke="#1E2F50" stroke-width="1" stroke-dasharray="5,3"/>
+      <text x="528" y="192" fill="#C4973A" font-size="9" letter-spacing="2.5">MONARCH LAN</text>
+
+      <!-- Monarch: hypervisor -->
+      <rect x="526" y="200" width="132" height="30" rx="1" fill="#101E36" stroke="#1E2F50" stroke-width="1"/>
+      <text x="592" y="219" text-anchor="middle" fill="#DDE4F0" font-size="9.5">Hypervisor + Lab</text>
+
+      <!-- Monarch: workstation -->
+      <rect x="670" y="200" width="148" height="30" rx="1" fill="#101E36" stroke="#1E2F50" stroke-width="1"/>
+      <text x="744" y="219" text-anchor="middle" fill="#DDE4F0" font-size="9.5">Workstation (AI)</text>
+
+      <!-- Monarch: AI row -->
+      <rect x="526" y="244" width="292" height="28" rx="1" fill="#0B1628" stroke="#1E2F50" stroke-width="1"/>
+      <text x="672" y="262" text-anchor="middle" fill="#7A90B4" font-size="8.5">Ollama · ComfyUI · ROCm (AMD GPU)</text>
+
+      <!-- Monarch: services -->
+      <rect x="526" y="284" width="138" height="28" rx="1" fill="#0B1628" stroke="#1E2F50" stroke-width="1"/>
+      <text x="595" y="302" text-anchor="middle" fill="#7A90B4" font-size="8.5">UniFi · Docker</text>
+
+      <rect x="676" y="284" width="142" height="28" rx="1" fill="#0B1628" stroke="#1E2F50" stroke-width="1"/>
+      <text x="747" y="302" text-anchor="middle" fill="#7A90B4" font-size="8.5">Local AI inference</text>
+
+      <!-- Monarch: backup -->
+      <rect x="526" y="324" width="292" height="24" rx="1" fill="#0B1628" stroke="#1E2F50" stroke-width="1"/>
+      <text x="672" y="340" text-anchor="middle" fill="#7A90B4" font-size="8.5">Nightly vzdump → B2 offsite (restic)</text>
+
+      <!-- Tailscale mesh label -->
+      <text x="430" y="385" text-anchor="middle" fill="#4A80DC" font-size="8.5" opacity="0.55" letter-spacing="2">── TAILSCALE OVERLAY MESH ──</text>
+      <line x1="60" y1="380" x2="342" y2="380" stroke="#4A80DC" stroke-width="0.75" opacity="0.2" stroke-dasharray="4,3"/>
+      <line x1="518" y1="380" x2="800" y2="380" stroke="#4A80DC" stroke-width="0.75" opacity="0.2" stroke-dasharray="4,3"/>
+      <!-- dots connecting zones to overlay line -->
+      <circle cx="185" cy="380" r="3" fill="#4A80DC" opacity="0.35"/>
+      <circle cx="675" cy="380" r="3" fill="#4A80DC" opacity="0.35"/>
+      <line x1="185" y1="360" x2="185" y2="380" stroke="#4A80DC" stroke-width="0.75" opacity="0.3" stroke-dasharray="3,3"/>
+      <line x1="675" y1="360" x2="675" y2="380" stroke="#4A80DC" stroke-width="0.75" opacity="0.3" stroke-dasharray="3,3"/>
+
+    </svg>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<div class="philosophy-strip">
+  <div class="philosophy-inner">
+    <div class="section-label">Design Philosophy</div>
+    <p class="philosophy-quote">"Boring, observable, reversible."</p>
+    <p class="philosophy-sub">
+      Stability over novelty. Every architectural decision earns its place by solving a real problem. Prefer native tooling, explicit configuration, and documented deployments over clever or opaque solutions. If something breaks, it should fail safely — not creatively.
+    </p>
+    <div class="philosophy-grid">
+      <div class="philosophy-item">
+        <h4>Boring</h4>
+        <p>Stable, proven tooling over bleeding-edge novelty. No added complexity without clear operational benefit. The goal is still running five years from now with minimal intervention.</p>
+      </div>
+      <div class="philosophy-item">
+        <h4>Observable</h4>
+        <p>Monitoring agents across both zones feed centralized dashboards. Alerting tuned by severity and context. Nothing fails silently — and alert fatigue is treated as seriously as the alerts themselves.</p>
+      </div>
+      <div class="philosophy-item">
+        <h4>Reversible</h4>
+        <p>Changes are snapshotted before execution. A nightly backup chain writes to offsite object storage. Recovery procedures are documented, scheduled for testing, and written for a stressed operator — not a rested one.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TECH STACK -->
+<section>
+  <div class="section-label">Technology</div>
+  <h2 class="section-title">What it runs on</h2>
+  <p class="section-intro">Coverage across network, compute, storage, operations, and AI — with deliberate choices at every layer and a preference for tools that will still be maintained in five years.</p>
+
+  <div class="stack-grid">
+
+    <div class="stack-group">
+      <div class="stack-group-label">Network &amp; Security</div>
+      <div class="tag-list">
+        <span class="tag">OPNsense</span>
+        <span class="tag">HAProxy</span>
+        <span class="tag">Unbound DNS</span>
+        <span class="tag">Let's Encrypt / ACME</span>
+        <span class="tag">Tailscale</span>
+        <span class="tag">Cloudflare</span>
+        <span class="tag">UniFi</span>
+        <span class="tag">Suricata IDS</span>
+        <span class="tag">Dual-WAN Failover</span>
+      </div>
+    </div>
+
+    <div class="stack-group">
+      <div class="stack-group-label">Compute &amp; Virtualization</div>
+      <div class="tag-list">
+        <span class="tag">Proxmox VE</span>
+        <span class="tag">KVM / QEMU</span>
+        <span class="tag">LXC Containers</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Docker Compose</span>
+        <span class="tag">ZFS</span>
+        <span class="tag">Bazzite Linux</span>
+        <span class="tag">Debian</span>
+      </div>
+    </div>
+
+    <div class="stack-group">
+      <div class="stack-group-label">Self-Hosted Services</div>
+      <div class="tag-list">
+        <span class="tag">Nextcloud</span>
+        <span class="tag">ONLYOFFICE</span>
+        <span class="tag">Outline Wiki</span>
+        <span class="tag">draw.io</span>
+        <span class="tag">Netdata</span>
+        <span class="tag">Proxmox Datacenter Mgr</span>
+        <span class="tag">Semaphore UI</span>
+        <span class="tag">Backrest</span>
+      </div>
+    </div>
+
+    <div class="stack-group">
+      <div class="stack-group-label">Automation &amp; Operations</div>
+      <div class="tag-list">
+        <span class="tag">Ansible</span>
+        <span class="tag">Restic</span>
+        <span class="tag">Backblaze B2</span>
+        <span class="tag">Cloudflare DNS-01</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Redis</span>
+        <span class="tag">SMTP Alerting</span>
+      </div>
+    </div>
+
+    <div class="stack-group">
+      <div class="stack-group-label">AI &amp; Inference</div>
+      <div class="tag-list">
+        <span class="tag hi">Ollama</span>
+        <span class="tag hi">ComfyUI</span>
+        <span class="tag hi">ROCm (AMD GPU)</span>
+        <span class="tag hi">Local LLM Inference</span>
+        <span class="tag hi">GPU Passthrough</span>
+        <span class="tag hi">Nextcloud AI Integration</span>
+      </div>
+    </div>
+
+    <div class="stack-group">
+      <div class="stack-group-label">On the Horizon</div>
+      <div class="tag-list">
+        <span class="tag">Intel Arc Pro GPU</span>
+        <span class="tag">Proxmox Backup Server</span>
+        <span class="tag">GLPI (ITSM)</span>
+        <span class="tag">n8n Orchestration</span>
+        <span class="tag">MCP Servers</span>
+        <span class="tag">Linux EDR</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DOCUMENTATION -->
+<section>
+  <div class="section-label">Documentation</div>
+  <h2 class="section-title">Enterprise standards, personally enforced</h2>
+  <p class="section-intro">Every component has a wiki page. Every procedure has an SOP. The same documentation discipline I've spent a career applying to production environments — applied here, because documentation saves lives and I learned that before I ever worked in IT.</p>
+
+  <div class="doc-feature">
+    <div class="doc-intro-label">Project KMS — Knowledge Management System</div>
+    <p class="doc-intro-text">
+      The environment runs a self-hosted wiki documented to a three-tier SSOT standard. <strong>Tier 3 owns facts. Tier 2 owns relationships. Tier 1 owns narrative.</strong> A single infrastructure change should require updating exactly one tier. If it touches more than that, something structural needs fixing — not patching.
+    </p>
+    <div class="doc-tier-list">
+      <div class="doc-tier">
+        <div class="doc-tier-n">Tier 1</div>
+        <div class="doc-tier-label">Executive Overview</div>
+        <div class="doc-tier-desc">What exists, why it exists, how it's organized. Written for orientation, not implementation.</div>
+      </div>
+      <div class="doc-tier">
+        <div class="doc-tier-n">Tier 2</div>
+        <div class="doc-tier-label">Engineering Overview</div>
+        <div class="doc-tier-desc">Architecture decisions, topology, protocol choices, service relationships.</div>
+      </div>
+      <div class="doc-tier">
+        <div class="doc-tier-n">Tier 3</div>
+        <div class="doc-tier-label">Component Detail</div>
+        <div class="doc-tier-desc">Exact configs, file paths, CLI commands, recovery scenarios. Authoritative source of truth.</div>
+      </div>
+      <div class="doc-tier">
+        <div class="doc-tier-n">SOPs</div>
+        <div class="doc-tier-label">Procedures</div>
+        <div class="doc-tier-desc">Step-by-step operations with validation steps. Written for a stressed operator at 2am.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand"><span style="color:var(--accent)">farson</span>online.com</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/heal">HEAL Framework</a>
+    <a href="https://linkedin.com/in/tonyfarson" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>
