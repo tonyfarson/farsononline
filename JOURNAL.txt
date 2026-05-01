@@ -19,6 +19,66 @@
 
 ---
 
+## [2026-05-01] — Homepage Polish, Tinkertown, and The GOAT (CC Session)
+
+**Summary:** Long working session. Rebuilt the homepage hero, shipped two
+new subpages (Tinkertown lab + GOAT build page), and added a fourth domain
+card. Multiple iterations on the GOAT photo set as the user staged new
+images mid-session.
+
+**Changes made:**
+- index.html (homepage):
+  - Hero converted to two-column layout: name/text left, headshot
+    (rectangular) right; max-width bumped 900→1100px; stacks under 860px
+  - Removed the "Reno, Nevada · Est. 1997" eyebrow
+  - Added `.card-link` style (monospace, accent2 gold, animated arrow)
+  - Professional card: "Check out my resume" → /assets/TonyFarson_Baseline_Resume_v2.pdf
+  - Homelab card: "See My Tech stack" → /tinkertown/lab.html
+  - Fiction card: undimmed, added "Read the Prologue" → /assets/magebane_prologue.pdf
+    ("Coming Soon" badge intentionally retained — novel still in progress)
+  - Added 4th card: Gearhead / The GOAT → /goat/, "Follow the Build"
+  - Reconciled FJ40 year in about-strip stat (1970s → 1968)
+- /assets/: added tonyfarson.jpg, TonyFarson_Baseline_Resume_v2.pdf
+  (PDF generated from the docx via Collabora Office headless), and
+  magebane_prologue.pdf
+- /tinkertown/lab.html and /assets/tinmachi-logo.png: shipped together
+  with the homelab card link
+- /goat/ (new subpage):
+  - Built around the user-supplied snippet content; rebranded
+    "In The Garage" → "Gearhead" throughout (title, nav, hero eyebrow)
+  - Standalone gallery section deleted in favor of contextual placement
+  - 21 inline figures (`.build-figure`) distributed in numeric order:
+    Story (01, 03) → Frame transition (04, 05) → Engine (06-Out,
+    07-new-drivetrain) → Trans (transmission1) → Axles (17, 19) →
+    Susp (suspension1, steering1) → Body (20, 23, 24, 27, 28) →
+    Cabin (interior0, interior1, 29, 39) → Closing (final_image)
+  - Hero background image: sparks1.jpg (welding sparks)
+  - Lightbox JS rewired for 21 images, keyboard nav (← → Esc) preserved
+  - User renumbered files mid-session twice — handled rename
+    (13 → 06-Out / 06 → 07-new-drivetrain) and the Rollin → final_image
+    swap (git tracked as a rename)
+
+**Working artifacts left in place (intentionally untracked):**
+- /goat/goat-deliverable/ — contains card-snippet.html (the source for
+  the homepage card) and an empty the-goat/ placeholder dir. Content
+  has been folded into the live page. Safe to delete when convenient.
+
+**Open items:**
+- HEAL feature section in homepage index.html still references
+  /heal/HEAL-Whitepaper.docx and /heal/HEAL-Executive-Brief.pdf
+  (root-level paths). The May 1 entry below indicates those files
+  were moved under /heal/assets/ — homepage links should be verified
+  and updated if the files no longer live at the old paths.
+- "What's Left" punch list on the GOAT page still shows pending items
+  (Drivelines, Exhaust, Brake/Fuel Lines, Electrical, Bumpers, Sliders,
+  Lights, First Trail Run) — update as the build progresses.
+- /goat/ URL scheme: dir is /goat/ but a separate `the-goat/`
+  placeholder hint existed in goat-deliverable/. Decided to keep
+  /goat/ to avoid renaming. Worth revisiting if the user prefers
+  /the-goat/ in the long term.
+
+---
+
 ## [2026-05-01] — Asset Link Fix (CC Session)
 
 **Summary:** Short follow-up session to execute the asset link fix that the
