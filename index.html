@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tony Farson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:        #0B1628;
+  --surface:   #101E36;
+  --surface2:  #162240;
+  --border:    #1E2F50;
+  --text:      #DDE4F0;
+  --muted:     #7A90B4;
+  --accent:    #4A80DC;
+  --accent2:   #C4973A;
+  --white:     #F0F4FC;
+  --font-d:    'Fraunces', Georgia, serif;
+  --font-b:    'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-m:    'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-b);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--white); }
+
+/* ── NAV ──────────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(11, 22, 40, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: var(--font-m);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+}
+
+.nav-brand span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--white); }
+
+/* ── HERO ─────────────────────────────────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 2rem 4rem;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-m);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero-name {
+  font-family: var(--font-d);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-name em {
+  font-style: italic;
+  color: var(--accent2);
+}
+
+.hero-desc {
+  font-size: 1.15rem;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 580px;
+  line-height: 1.75;
+  margin-bottom: 3rem;
+}
+
+.hero-desc strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.7rem 1.5rem;
+  font-family: var(--font-b);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 3px;
+  transition: all 0.2s;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--white);
+  border: 1px solid var(--accent);
+}
+
+.btn-primary:hover {
+  background: #5B90E8;
+  color: var(--white);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(74, 128, 220, 0.3);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  border-color: var(--muted);
+  color: var(--text);
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--border);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.scroll-hint::after {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── SECTION COMMON ───────────────────────────────────────────────────── */
+section {
+  padding: 6rem 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.section-intro {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 640px;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+/* ── FEATURED: HEAL ───────────────────────────────────────────────────── */
+.heal-feature {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.heal-feature::before {
+  content: 'HEAL';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: var(--font-m);
+  font-size: 80px;
+  font-weight: 500;
+  color: rgba(74, 128, 220, 0.04);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.heal-tag {
+  display: inline-block;
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 2px 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.heal-title {
+  font-family: var(--font-d);
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.heal-desc {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 620px;
+  margin-bottom: 1.5rem;
+}
+
+.heal-desc strong { color: var(--text); font-weight: 500; }
+
+.heal-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ── DOMAINS GRID ─────────────────────────────────────────────────────── */
+.domains-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.domain-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2rem;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+}
+
+.domain-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.domain-card.dimmed {
+  opacity: 0.55;
+}
+
+.domain-card.dimmed:hover {
+  opacity: 0.7;
+  transform: none;
+  border-color: var(--border);
+}
+
+.domain-icon {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--accent2);
+  letter-spacing: 0.1em;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.domain-icon::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--accent2);
+}
+
+.domain-card h3 {
+  font-family: var(--font-d);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 0.75rem;
+}
+
+.domain-card p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+.domain-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  letter-spacing: 0.06em;
+}
+
+.coming-soon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--font-m);
+  font-size: 9px;
+  color: var(--accent2);
+  border: 1px solid var(--accent2);
+  padding: 2px 6px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── ABOUT STRIP ──────────────────────────────────────────────────────── */
+.about-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 5rem 2rem;
+  background: var(--surface);
+}
+
+.about-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about-left .about-bio {
+  font-family: var(--font-d);
+  font-size: 1.5rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.about-left p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.stat-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.stat-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.stat-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.stat-list .stat-n {
+  font-family: var(--font-d);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-list .stat-l {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+footer .footer-brand {
+  font-family: var(--font-m);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+footer .footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+footer .footer-links a {
+  font-size: 13px;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+footer .footer-links a:hover { color: var(--white); }
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .nav-links { display: none; }
+  footer { flex-direction: column; text-align: center; }
+}
+
+/* ── ANIMATIONS ───────────────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow { animation: fadeUp 0.6s ease both; }
+.hero-name    { animation: fadeUp 0.6s ease 0.1s both; }
+.hero-desc    { animation: fadeUp 0.6s ease 0.2s both; }
+.hero-cta     { animation: fadeUp 0.6s ease 0.3s both; }
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand"><span>farson</span>online.com</div>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#lab">Lab</a></li>
+    <li><a href="#ideas">Ideas</a></li>
+    <li><a href="https://linkedin.com/in/tonyfarson" target="_blank">LinkedIn</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">Reno, Nevada &nbsp;&bull;&nbsp; Est. 1997</div>
+  <h1 class="hero-name">Tony<br><em>Farson</em></h1>
+  <p class="hero-desc">
+    <strong>30 years of building, breaking, and fixing technology</strong> — from Navy field medicine and datacenter operations to SaaS enterprise support leadership. I think in systems, document obsessively, and build things that last.
+  </p>
+  <div class="hero-cta">
+    <a href="#ideas" class="btn btn-primary">Read: HEAL Framework</a>
+    <a href="#work" class="btn btn-ghost">Professional Background</a>
+  </div>
+  <div class="scroll-hint">Scroll to explore</div>
+</div>
+
+<!-- IDEAS / HEAL FEATURED -->
+<section id="ideas">
+  <div class="section-label">Ideas &amp; Frameworks</div>
+  <h2 class="section-title">What I'm thinking about</h2>
+  <p class="section-intro">Thirty years of watching technology solve the wrong problems — and occasionally the right ones — generates opinions. This is where I put the ones worth writing down.</p>
+
+  <div class="heal-feature">
+    <div class="heal-tag">Whitepaper</div>
+    <h3 class="heal-title">Hierarchical Epistemological AI Layering</h3>
+    <p class="heal-desc">
+      The first generation of large language models proved the concept works. They also built on a structurally flawed foundation — <strong>epistemic flattening</strong>, where peer-reviewed research and a Reddit thread carry identical weight in the training pipeline. A market correction is coming. <strong>HEAL</strong> is a design specification for the architecture that comes after it.
+    </p>
+    <p class="heal-desc">
+      The framework organizes AI knowledge into four stratified tiers with distinct governance rules, confidence metadata, and modification standards. The result: an AI that knows what it knows, knows what it thinks, and knows what it prefers — and is architecturally required to communicate the difference.
+    </p>
+    <div class="heal-links">
+      <a href="/heal" class="btn btn-primary">Read the Framework</a>
+      <a href="/heal/HEAL-Whitepaper.docx" class="btn btn-ghost">Download Whitepaper</a>
+      <a href="/heal/HEAL-Executive-Brief.pdf" class="btn btn-ghost">Executive Brief (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<!-- DOMAINS -->
+<section id="lab">
+  <div class="section-label">Domains</div>
+  <h2 class="section-title">How I spend my time</h2>
+  <p class="section-intro">The professional life pays the bills. The homelab keeps the mind sharp. The fiction writing keeps everything honest.</p>
+
+  <div class="domains-grid">
+
+    <div class="domain-card" id="work">
+      <div class="domain-icon">Professional</div>
+      <h3>Enterprise Support Leadership</h3>
+      <p>Director-level SaaS production support with a track record of building support organizations from scratch — including 98.3% shift-left success, 42% reduction in engineering escalations, and 100% P1 SLA compliance. ITIL certified. Twenty-five years of progressive operations leadership across SaaS, enterprise IT, and logistics.</p>
+      <div class="domain-tags">
+        <span class="tag">SaaS Operations</span>
+        <span class="tag">ITSM / ITIL</span>
+        <span class="tag">Major Incident Mgmt</span>
+        <span class="tag">AI Adoption</span>
+        <span class="tag">ServiceNow</span>
+      </div>
+    </div>
+
+    <div class="domain-card">
+      <div class="domain-icon">Homelab</div>
+      <h3>The Tinmachi Infrastructure</h3>
+      <p>A privately operated, production-disciplined home infrastructure running dual network zones — a segregated DMZ (Apex) and a household LAN (Monarch) — with OPNsense firewall enforcement, Proxmox hypervisors, Docker containerized services, Tailscale overlay networking, Ansible automation, and GPU-accelerated local AI inference. Documented to enterprise standards.</p>
+      <div class="domain-tags">
+        <span class="tag">Proxmox / KVM</span>
+        <span class="tag">OPNsense</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Tailscale</span>
+        <span class="tag">Ansible</span>
+        <span class="tag">Ollama / ROCm</span>
+        <span class="tag">Nextcloud</span>
+        <span class="tag">Linux</span>
+      </div>
+    </div>
+
+    <div class="domain-card dimmed">
+      <div class="coming-soon">Coming Soon</div>
+      <div class="domain-icon">Fiction</div>
+      <h3>Magebane</h3>
+      <p>A fantasy novel in progress. More when it's ready.</p>
+      <div class="domain-tags">
+        <span class="tag">Fantasy</span>
+        <span class="tag">Long-form Fiction</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip">
+  <div class="about-inner">
+    <div class="about-left">
+      <p class="about-bio">"Simple, stable, boring equals safe and secure."</p>
+      <p>The design philosophy behind the Tinmachi homelab — but it applies equally to the professional work. I don't chase novelty for its own sake. I build things intended to still be running in five years, documented well enough that someone else could operate them, and scaled to the actual problem rather than the hypothetical one.</p>
+      <br>
+      <p>Navy Hospital Corpsman, 1994–2002. Eight years of service that taught me what high-stakes operations actually look like — and that documentation saves lives. The IT career that followed has been one long application of that lesson.</p>
+    </div>
+    <ul class="stat-list">
+      <li>
+        <span class="stat-n">30+</span>
+        <span class="stat-l">Years in technology — from Navy tiger teams to SaaS enterprise</span>
+      </li>
+      <li>
+        <span class="stat-n">~25</span>
+        <span class="stat-l">Active infrastructure nodes across Apex and Monarch environments</span>
+      </li>
+      <li>
+        <span class="stat-n">1</span>
+        <span class="stat-l">Decade into a frame-off restoration of a 1970s FJ40 Land Cruiser</span>
+      </li>
+      <li>
+        <span class="stat-n">∞</span>
+        <span class="stat-l">Opinions about epistemological architecture in AI systems</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">farsononline.com &nbsp;&bull;&nbsp; Reno, NV</div>
+  <div class="footer-links">
+    <a href="https://linkedin.com/in/tonyfarson" target="_blank">LinkedIn</a>
+    <a href="/heal">HEAL Framework</a>
+    <a href="mailto:ajfarson@gmail.com">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>

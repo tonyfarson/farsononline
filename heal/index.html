@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HEAL — Hierarchical Epistemological AI Layering | Tony Farson</title>
+<meta name="description" content="A design specification for second-generation LLM knowledge architecture. HEAL organizes AI knowledge into four epistemologically stratified tiers, each with distinct governance rules and confidence metadata.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:        #0B1628;
+  --surface:   #101E36;
+  --surface2:  #162240;
+  --border:    #1E2F50;
+  --text:      #DDE4F0;
+  --muted:     #7A90B4;
+  --accent:    #4A80DC;
+  --accent2:   #C4973A;
+  --white:     #F0F4FC;
+  --font-d:    'Fraunces', Georgia, serif;
+  --font-b:    'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-m:    'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-b);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--white); }
+
+/* ── NAV ──────────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(11, 22, 40, 0.94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-back {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-m);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  transition: color 0.2s;
+}
+
+.nav-back:hover { color: var(--white); }
+
+.nav-back::before {
+  content: '←';
+  font-size: 14px;
+}
+
+.nav-title {
+  font-family: var(--font-m);
+  font-size: 12px;
+  color: var(--border);
+  letter-spacing: 0.12em;
+}
+
+/* ── HERO ─────────────────────────────────────────────────────────────── */
+.hero {
+  padding: 120px 2rem 5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 4px 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.hero-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.hero-title {
+  font-family: var(--font-d);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--accent2);
+}
+
+.hero-acronym {
+  font-family: var(--font-m);
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
+}
+
+.hero-lede {
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 620px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-lede strong { color: var(--text); font-weight: 500; }
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 4rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.7rem 1.4rem;
+  font-family: var(--font-b);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 3px;
+  transition: all 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--white);
+  border: 1px solid var(--accent);
+}
+
+.btn-primary:hover {
+  background: #5B90E8;
+  color: var(--white);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(74,128,220,0.3);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover {
+  border-color: var(--muted);
+  color: var(--text);
+}
+
+/* ── DIVIDER ──────────────────────────────────────────────────────────── */
+.rule {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ── BODY CONTENT ─────────────────────────────────────────────────────── */
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.prose-section {
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.prose-section:last-of-type { border-bottom: none; }
+
+.prose-label {
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.prose-label::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.prose-section h2 {
+  font-family: var(--font-d);
+  font-size: 1.9rem;
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+}
+
+.prose-section p {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 1.2rem;
+}
+
+.prose-section p:last-child { margin-bottom: 0; }
+
+.prose-section strong { color: var(--text); font-weight: 600; }
+
+/* ── TIER GRID ────────────────────────────────────────────────────────── */
+.tier-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 2.5rem 0;
+  border: 1px solid var(--border);
+}
+
+.tier-row {
+  display: grid;
+  grid-template-columns: 60px 180px 1fr;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.tier-row:last-child { border-bottom: none; }
+.tier-row:hover { background: var(--surface); }
+
+.tier-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-m);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--accent);
+  border-right: 1px solid var(--border);
+  padding: 1.25rem;
+  background: var(--surface);
+}
+
+.tier-label {
+  padding: 1.25rem 1rem;
+  border-right: 1px solid var(--border);
+}
+
+.tier-label strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+
+.tier-label .tier-mut {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.tier-detail {
+  padding: 1.25rem 1.25rem;
+}
+
+.tier-detail p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 0 0.4rem;
+}
+
+.tier-detail p:last-child { margin: 0; }
+
+.tier-example {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--border);
+  letter-spacing: 0.06em;
+}
+
+/* Tier accent colors */
+.tier-row:nth-child(1) .tier-num { color: #6DB8F5; }
+.tier-row:nth-child(2) .tier-num { color: #7DC9A8; }
+.tier-row:nth-child(3) .tier-num { color: var(--accent2); }
+.tier-row:nth-child(4) .tier-num { color: #C47FB4; }
+
+/* ── CALLOUT ──────────────────────────────────────────────────────────── */
+.callout {
+  background: var(--surface);
+  border-left: 3px solid var(--accent);
+  padding: 1.5rem 1.75rem;
+  margin: 2rem 0;
+}
+
+.callout p {
+  font-family: var(--font-d);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--text) !important;
+  line-height: 1.65;
+  margin: 0 !important;
+}
+
+/* ── DOWNLOADS ────────────────────────────────────────────────────────── */
+.downloads {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  margin: 4rem 0 0;
+}
+
+.downloads h3 {
+  font-family: var(--font-d);
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.downloads p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.download-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.download-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+  gap: 1rem;
+}
+
+.download-item:hover { border-color: var(--accent); }
+
+.dl-info {}
+
+.dl-info .dl-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--white);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.dl-info .dl-desc {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--font-m);
+  letter-spacing: 0.04em;
+}
+
+.dl-btn {
+  flex-shrink: 0;
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 5px 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.dl-btn:hover {
+  background: var(--accent);
+  color: var(--white);
+}
+
+/* ── CONNECT ──────────────────────────────────────────────────────────── */
+.connect {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--accent);
+  padding: 3rem 2.5rem;
+  margin: 2rem 0 4rem;
+  text-align: center;
+}
+
+.connect h3 {
+  font-family: var(--font-d);
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 0.75rem;
+}
+
+.connect p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 480px;
+  margin: 0 auto 1.75rem;
+  line-height: 1.7;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2rem 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+footer span {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--border);
+  letter-spacing: 0.08em;
+}
+
+footer a {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+footer a:hover { color: var(--white); }
+
+@media (max-width: 640px) {
+  .tier-row { grid-template-columns: 50px 1fr; }
+  .tier-label { display: none; }
+  .download-item { flex-direction: column; align-items: flex-start; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge  { animation: fadeUp 0.5s ease both; }
+.hero-title  { animation: fadeUp 0.5s ease 0.08s both; }
+.hero-lede   { animation: fadeUp 0.5s ease 0.16s both; }
+.hero-actions{ animation: fadeUp 0.5s ease 0.24s both; }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-back">farsononline.com</a>
+  <span class="nav-title">HEAL &nbsp;/&nbsp; Framework</span>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Whitepaper &mdash; 2026</div>
+  <h1 class="hero-title">Hierarchical<br>Epistemological<br><em>AI Layering</em></h1>
+  <p class="hero-acronym">H &mdash; E &mdash; A &mdash; L</p>
+  <p class="hero-lede">
+    The first generation of large language models proved the concept works. They also built on a structurally flawed foundation. <strong>HEAL is a design specification for what comes after the correction</strong> — an architectural framework for AI systems that know what they know, know what they think, and know what they prefer.
+  </p>
+  <div class="hero-actions">
+    <a href="assets/HEAL-Whitepaper.docx" class="btn btn-primary">Download Whitepaper</a>
+    <a href="assets/HEAL-Executive-Brief.pdf" class="btn btn-ghost">Executive Brief (2 pages)</a>
+    <a href="https://linkedin.com/in/tonyfarson" target="_blank" class="btn btn-ghost">Connect on LinkedIn</a>
+  </div>
+</div>
+
+<hr class="rule">
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- The Problem -->
+  <div class="prose-section">
+    <div class="prose-label">The Problem</div>
+    <h2>The AI market is built on a flawed epistemological foundation</h2>
+    <p>Every major frontier model was trained by processing the internet through a single pipeline. A peer-reviewed study in <em>Nature</em> and a confident Reddit post about the same subject went through identical processes and carry equivalent weight in the resulting model. The model cannot distinguish them — because the distinction was never built in. This is <strong>epistemic flattening</strong>, and it is not a tuning problem. It is an architecture problem.</p>
+    <p>Reinforcement Learning from Human Feedback (RLHF) — the alignment technique used to make these models useful — compounds the issue. RLHF optimizes for human preference, not epistemic accuracy. Human raters prefer confident, fluent, complete responses. They penalize hedging and uncertainty. The system learns, across billions of gradient updates, to <strong>sound authoritative whether it is or not</strong>.</p>
+    <p>Every current frontier model also carries an invisible Layer 4 — a set of communicative preferences, cultural framings, and value-adjacent commitments baked into the substrate during training. Nobody chose it. Nobody can audit it. Enterprise customers deploying these systems cannot tell a regulator what preferences are shaping their outputs, because there is no architectural interface at which to inspect them.</p>
+
+    <div class="callout">
+      <p>&ldquo;Continuing to scale the current paradigm is doing bad reasoning really fast, with more expensive hardware. The defect is architectural. It requires an architectural solution.&rdquo;</p>
+    </div>
+
+    <p>A market correction is coming. It always does when the technology outpaces the reliability of its foundation. The dot-com correction did not kill the internet — it killed the companies selling the concept of the internet as a product, and cleared the ground for the companies that built what the internet actually needed. The AI correction will follow the same pattern. <strong>HEAL is designed for the window that opens.</strong></p>
+  </div>
+
+  <!-- The Framework -->
+  <div class="prose-section">
+    <div class="prose-label">The Framework</div>
+    <h2>Four tiers. One foundational premise.</h2>
+    <p>HEAL is built on a single foundational premise: <strong>epistemic category is a first-class architectural concern, not a post-hoc annotation</strong>. Current models are trained first and categorized never. HEAL inverts this. Before information enters the training pipeline, it is assigned to one of four epistemological tiers. Each tier carries distinct governance rules, ingestion standards, confidence metadata, and modification requirements. The tiers are architecturally separated so that higher-confidence material cannot be contaminated by lower-confidence material at the substrate level.</p>
+
+    <div class="tier-grid">
+      <div class="tier-row">
+        <div class="tier-num">1</div>
+        <div class="tier-label">
+          <strong>Immutable Facts</strong>
+          <span class="tier-mut">Fixed</span>
+        </div>
+        <div class="tier-detail">
+          <p>Empirically verified, reproducible data beyond reasonable dispute. Physical constants, periodic table, verified historical events, mathematical proofs.</p>
+          <p class="tier-example">Sources: NIST, IUPAC, NCBI, established legal texts</p>
+        </div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-num">2</div>
+        <div class="tier-label">
+          <strong>Scientific Theory</strong>
+          <span class="tier-mut">Evidence-gated</span>
+        </div>
+        <div class="tier-detail">
+          <p>Well-supported explanatory frameworks with predictive power. Explicitly labeled as theory — the best available explanation, not established fact.</p>
+          <p class="tier-example">Examples: Evolution, relativity, germ theory, climate attribution</p>
+        </div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-num">3</div>
+        <div class="tier-label">
+          <strong>Domain Knowledge</strong>
+          <span class="tier-mut">Governed</span>
+        </div>
+        <div class="tier-detail">
+          <p>Specialized, contextual, organization-specific expertise. Carries provenance, currency timestamps, and domain scope markers. This is where vertical customization lives.</p>
+          <p class="tier-example">Examples: Clinical protocols, legal precedent, firm methodology, org data</p>
+        </div>
+      </div>
+      <div class="tier-row">
+        <div class="tier-num">4</div>
+        <div class="tier-label">
+          <strong>Social / Interpretive</strong>
+          <span class="tier-mut">Configurable</span>
+        </div>
+        <div class="tier-detail">
+          <p>Explicitly labeled preferences, framings, and communication style. Architecturally isolated from Tiers 1–3. Operator-selected, user-visible, auditable.</p>
+          <p class="tier-example">The transparency is the feature. Right now every model has an implicit Tier 4 nobody chose.</p>
+        </div>
+      </div>
+    </div>
+
+    <p>Every knowledge chunk in a HEAL architecture carries a metadata schema: tier classification, confidence score, source provenance, date of ingestion, mutability classification, and the approval authority required for modification. This metadata travels with the content through every stage of processing and is available for audit at any point.</p>
+    <p>A conservative-configured Tier 4 and a progressive-configured Tier 4 sitting on the same Tier 1–2 foundation will produce different framings of policy questions — but they cannot produce different answers to empirical questions. <strong>The facts do not change with the framing preference.</strong> This architectural separation is what makes HEAL's Tier 4 catalog genuinely defensible rather than merely customizable.</p>
+  </div>
+
+  <!-- The Business Case -->
+  <div class="prose-section">
+    <div class="prose-label">The Business Case</div>
+    <h2>A platform model in a commodity market</h2>
+    <p>The current AI market has a structural problem: it is a commodity market dressed as a differentiated one. Every major frontier model offers roughly the same capabilities with marginal differences in personality, safety defaults, and pricing. The competitive dynamic is a cost-per-token race dressed up as a capability race. This is the market structure that produces bubbles — and corrections.</p>
+    <p>HEAL separates the AI stack into components with fundamentally different economics. <strong>Tiers 1–2 become the chassis</strong> — certified, validated, built once, amortized across every product that sits on top of it. Think Intel building a processor architecture every OEM builds around. Nobody wants to rebuild the silicon from scratch. <strong>Tier 3 is where differentiation lives</strong> — fast, cheap, infinitely customizable. A biotech firm and a law firm share the same chassis but completely different domain layers. <strong>Tier 4 is the configuration catalog</strong> — explicit, auditable, chosen rather than inherited.</p>
+    <p>Enterprise customers in regulated industries — legal, medical, financial — do not need the most capable AI. They need the most trustworthy AI, and they will pay a premium for it when they can verify the claim. HEAL provides the verification. Regulatory frameworks globally are converging on exactly the properties HEAL provides by design: explainability, auditability, and documented data governance.</p>
+  </div>
+
+  <!-- Downloads -->
+  <div class="downloads">
+    <h3>Read the full argument</h3>
+    <p>The complete technical and business case is available in two formats — a full whitepaper for those who want the complete argument, and a two-page executive brief for decision makers.</p>
+    <div class="download-list">
+      <div class="download-item">
+        <div class="dl-info">
+          <span class="dl-name">HEAL Whitepaper</span>
+          <span class="dl-desc">Full technical and business specification &mdash; Word document</span>
+        </div>
+        <a href="assets/HEAL-Whitepaper.docx" class="dl-btn">Download .docx</a>
+      </div>
+      <div class="download-item">
+        <div class="dl-info">
+          <span class="dl-name">Executive Brief</span>
+          <span class="dl-desc">Two-page summary for decision makers &mdash; PDF</span>
+        </div>
+        <a href="assets/HEAL-Executive-Brief.pdf" class="dl-btn">Download PDF</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Connect -->
+  <div class="connect">
+    <h3>Let's talk about this</h3>
+    <p>I'm a practitioner, not a researcher — thirty years of building and operating technology at scale. If this framework resonates with problems you're running into, I'd like to hear about it.</p>
+    <a href="https://linkedin.com/in/tonyfarson" target="_blank" class="btn btn-primary">Connect on LinkedIn</a>
+  </div>
+
+</div>
+
+<footer>
+  <span>&copy; 2026 Tony Farson &nbsp;&bull;&nbsp; farsononline.com</span>
+  <a href="/">Back to main site</a>
+</footer>
+
+</body>
+</html>
