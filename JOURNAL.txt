@@ -1,0 +1,55 @@
+# JOURNAL.txt — farsononline Session Log
+# Maintained by Claude Code (CC) at the end of every working session.
+# Format: newest entry at the top.
+# See CLAUDE.txt for session wrap-up instructions.
+
+---
+
+## Entry Format
+
+```
+## [YYYY-MM-DD] — Session Title
+**Summary:** What was accomplished this session.
+**Changes made:**
+- List of specific changes
+**Open items:**
+- Anything unresolved or deferred to a future session
+---
+```
+
+---
+
+## [2026-05-01] — Initial Site Launch
+
+**Summary:** Full site built and deployed from scratch. farsononline.com is live on
+Cloudflare Pages connected to the tonyfarson/farsononline GitHub repository.
+
+**Changes made:**
+- Created repository at https://github.com/tonyfarson/farsononline
+- Built main landing page (index.html) — dark theme, renaissance man framing,
+  three domain cards (Professional, Homelab, Magebane/Coming Soon), HEAL featured
+  prominently, about strip with stats
+- Built HEAL framework page (heal/index.html) — full argument in three sections,
+  tier grid, download links, LinkedIn CTA
+- Created /heal/assets/ directory containing:
+  - HEAL-Whitepaper.docx
+  - HEAL-Executive-Brief.pdf
+- Updated asset download links in heal/index.html to point to assets/ subdirectory
+  (Claude Code performed this fix — 4 link instances updated)
+- Added CLAUDE.txt and JOURNAL.txt to repository
+- Deployed to Cloudflare Pages — farsononline.com active and resolving
+
+**Open items:**
+- LinkedIn post for HEAL has been drafted but not yet published — draft exists
+  in Claude.ai chat history
+- Contact email in index.html footer (ajfarson@gmail.com) — confirm this is the
+  preferred public-facing contact or update to an alternative
+- Version 2 planning: evaluate Ghost Pro or similar managed CMS for WYSIWYG
+  editing capability — decision deferred
+- Magebane section is marked Coming Soon — no timeline set, add content when ready
+- Consider adding a proper favicon
+- Consider adding Open Graph meta tags for better social media link previews
+
+---
+
+*Journal initialized: 2026-05-01*

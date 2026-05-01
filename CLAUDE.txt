@@ -1,0 +1,146 @@
+# CLAUDE.txt — farsononline Project Instructions
+# This file guides Claude Code (CC) in all work performed in this repository.
+# Read this file completely before beginning any task.
+
+---
+
+## Project Overview
+
+This repository contains the source code for **farsononline.com** — the personal website
+of Tony Farson. It is a static HTML site deployed via Cloudflare Pages, connected to the
+GitHub repo at https://github.com/tonyfarson/farsononline.
+
+The site is intentionally simple and fast. No frameworks, no build tools, no dependencies.
+Pure HTML and CSS only. Do not introduce JavaScript frameworks, npm, or build pipelines
+without explicit instruction.
+
+---
+
+## Repository Structure
+
+```
+farsononline/
+├── index.html              # Main landing page (farsononline.com)
+├── heal/
+│   ├── index.html          # HEAL framework page (farsononline.com/heal)
+│   └── assets/
+│       ├── HEAL-Whitepaper.docx
+│       └── HEAL-Executive-Brief.pdf
+├── CLAUDE.txt              # This file — CC project instructions
+└── JOURNAL.txt             # Session log — updated by CC at end of every session
+```
+
+---
+
+## Design System
+
+Both pages share a consistent design language. Do not deviate from these without instruction.
+
+**Colors:**
+- Background:   #0B1628
+- Surface:      #101E36
+- Surface 2:    #162240
+- Border:       #1E2F50
+- Text:         #DDE4F0
+- Muted:        #7A90B4
+- Accent blue:  #4A80DC
+- Accent gold:  #C4973A
+- White:        #F0F4FC
+
+**Typography:**
+- Display/Headlines: Fraunces (Google Fonts)
+- Body: Plus Jakarta Sans (Google Fonts)
+- Monospace/Labels: JetBrains Mono (Google Fonts)
+
+**Principles:**
+- Dark theme only
+- Minimal, deliberate, no decorative clutter
+- Mobile responsive
+- No JavaScript unless absolutely necessary and explicitly approved
+
+---
+
+## Content Guidelines
+
+- Tone is professional but personal — not corporate, not casual
+- No religious content on any public-facing page
+- Writing should reflect a "renaissance man" identity: enterprise IT professional,
+  technical tinkerer, and eventually fiction writer
+- HEAL content is factual and business-focused — no ideology, no theology
+- "Magebane" fiction section is marked Coming Soon — do not add content without instruction
+
+---
+
+## Deployment
+
+- Deployment is automatic via Cloudflare Pages on every push to `main`
+- There are no build steps — files deploy as-is
+- Always verify the repo structure is correct before committing
+- Commit messages should be descriptive and specific
+
+**Deployment workflow:**
+```
+git add .
+git commit -m "Descriptive message about what changed"
+git push origin main
+```
+
+Cloudflare Pages will redeploy within ~60 seconds of a push.
+
+---
+
+## Assets
+
+- Downloadable files (whitepaper, brief) live in `/heal/assets/`
+- File naming convention: descriptive, hyphenated, no spaces, no special characters
+- Do not add large binary files to the repo without instruction
+- If new downloadable assets are added, update the download links in `heal/index.html`
+
+---
+
+## Tasks CC Is Authorized to Perform
+
+- Edit HTML content and copy
+- Update navigation links and anchor targets
+- Fix broken links
+- Add new sections to existing pages following the existing design system
+- Add new pages following the existing design system
+- Rename or reorganize files (update all internal references)
+- Update JOURNAL.txt at session end
+
+## Tasks Requiring Explicit Instruction Before Proceeding
+
+- Adding any new downloadable assets
+- Changing the color scheme or typography
+- Adding JavaScript
+- Creating entirely new top-level pages
+- Changing the site's information architecture
+- Any change to CLAUDE.txt itself
+
+---
+
+## Session Wrap-Up Process
+
+At the end of every Claude Code session, CC must complete the following before closing:
+
+1. **Review all changes made** during the session
+2. **Stage and commit** any uncommitted changes with a clear commit message
+3. **Push to origin main**
+4. **Update JOURNAL.txt** with a session entry (see JOURNAL.txt for format)
+5. **Commit and push JOURNAL.txt** separately with message: `"Journal: [brief description of session]"`
+
+Do not close a session without completing the wrap-up process.
+If the user ends the session before wrap-up is complete, note it as an open item
+in the next session's journal entry.
+
+---
+
+## Open Items Tracking
+
+Open items are tracked in JOURNAL.txt under each session entry.
+At the start of a new session, CC should read the most recent JOURNAL.txt entry
+and address any open items before beginning new work unless instructed otherwise.
+
+---
+
+*Last updated: 2026-05-01*
