@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gearhead — The GOAT | FarsonOnline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --bg:        #0B1628;
+  --surface:   #101E36;
+  --surface2:  #162240;
+  --border:    #1E2F50;
+  --text:      #DDE4F0;
+  --muted:     #7A90B4;
+  --accent:    #4A80DC;
+  --accent2:   #C4973A;
+  --white:     #F0F4FC;
+  --font-d:    'Fraunces', Georgia, serif;
+  --font-b:    'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-m:    'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-b);
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--white); }
+
+/* ── NAV ──────────────────────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(11, 22, 40, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-brand {
+  font-family: var(--font-m);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+}
+
+.nav-brand span { color: var(--accent); }
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover,
+.nav-links a.active { color: var(--white); }
+
+/* ── HERO ─────────────────────────────────────────────────────────────── */
+.page-hero {
+  margin-top: 60px;
+  position: relative;
+  min-height: 480px;
+  background: var(--surface) url('assets/05-frame-up.jpg') center/cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(11,22,40,0.2) 0%,
+    rgba(11,22,40,0.6) 50%,
+    rgba(11,22,40,0.92) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 3rem 2rem 3.5rem;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero-title {
+  font-family: var(--font-d);
+  font-size: clamp(3rem, 8vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--white);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--accent2);
+}
+
+.hero-sub {
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--accent2);
+  border: 1px solid var(--accent2);
+  padding: 3px 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ── SECTION COMMON ───────────────────────────────────────────────────── */
+section {
+  padding: 5rem 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--font-d);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--white);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.section-intro {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--muted);
+  max-width: 640px;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+/* ── INTRO / NARRATIVE ────────────────────────────────────────────────── */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 4rem;
+  align-items: start;
+  margin-top: 3rem;
+}
+
+.intro-body p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+
+.intro-body p:last-child { margin-bottom: 0; }
+
+.intro-body strong { color: var(--text); font-weight: 500; }
+
+.intro-body em {
+  font-style: italic;
+  color: var(--text);
+}
+
+/* ── SIDEBAR SPEC LIST ────────────────────────────────────────────────── */
+.spec-sidebar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  padding: 1.75rem;
+}
+
+.spec-sidebar .sidebar-label {
+  font-family: var(--font-m);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spec-sidebar .sidebar-label::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.spec-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.spec-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.spec-list li:first-child { padding-top: 0; }
+.spec-list li:last-child  { border-bottom: none; padding-bottom: 0; }
+
+.spec-key {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.spec-val {
+  font-family: var(--font-m);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* ── PULL QUOTE ───────────────────────────────────────────────────────── */
+.pull-quote {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent2);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+
+.pull-quote::before {
+  content: '"';
+  position: absolute;
+  right: 1rem;
+  top: -2rem;
+  font-family: var(--font-d);
+  font-size: 12rem;
+  line-height: 1;
+  color: rgba(196, 151, 58, 0.06);
+  pointer-events: none;
+  user-select: none;
+}
+
+.pull-quote blockquote {
+  font-family: var(--font-d);
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.65;
+  max-width: 680px;
+  position: relative;
+  z-index: 1;
+}
+
+.pull-quote cite {
+  display: block;
+  margin-top: 1rem;
+  font-family: var(--font-m);
+  font-size: 11px;
+  font-style: normal;
+  color: var(--accent2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ── INLINE BUILD FIGURES ─────────────────────────────────────────────── */
+.build-figure {
+  display: block;
+  margin: 1.75rem 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  cursor: zoom-in;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.build-figure:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.build-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.4s ease;
+}
+
+.build-figure:hover img { transform: scale(1.015); }
+
+.build-figure figcaption {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  padding: 0.85rem 1rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.build-figure figcaption::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--accent2);
+  flex-shrink: 0;
+}
+
+.figure-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.figure-pair .build-figure { margin: 0; }
+
+.figure-block {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+
+.breakdown-card .build-figure { margin-top: 1.5rem; }
+.breakdown-card .figure-pair  { margin-top: 1.5rem; margin-bottom: 0; }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ── LIGHTBOX ─────────────────────────────────────────────────────────── */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(6, 11, 22, 0.95);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.lightbox.open { display: flex; }
+
+.lb-inner {
+  position: relative;
+  max-width: 860px;
+  width: 100%;
+}
+
+.lb-img {
+  display: block;
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border: 1px solid var(--border);
+}
+
+.lb-caption {
+  margin-top: 0.85rem;
+  font-family: var(--font-m);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  text-align: center;
+}
+
+.lb-close {
+  position: absolute;
+  top: -2.75rem;
+  right: 0;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-family: var(--font-m);
+  padding: 0.2rem 0.5rem;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.lb-close:hover { color: var(--white); }
+
+.lb-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(16, 30, 54, 0.85);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 1.5rem;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  line-height: 1;
+}
+
+.lb-nav:hover { color: var(--white); border-color: var(--accent); }
+.lb-prev { left: -3.75rem; }
+.lb-next { right: -3.75rem; }
+
+/* ── BUILD BREAKDOWN ──────────────────────────────────────────────────── */
+.breakdown-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+
+.breakdown-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  padding: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.breakdown-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.breakdown-card__watermark {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: var(--font-m);
+  font-size: 60px;
+  font-weight: 500;
+  color: rgba(74, 128, 220, 0.04);
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.breakdown-card__icon {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--accent2);
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breakdown-card__icon::before {
+  content: '';
+  width: 16px;
+  height: 1px;
+  background: var(--accent2);
+}
+
+.breakdown-card h3 {
+  font-family: var(--font-d);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 0.65rem;
+}
+
+.breakdown-card p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+/* ── WHAT'S LEFT ──────────────────────────────────────────────────────── */
+.remaining {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  margin-top: 3rem;
+}
+
+.remaining h3 {
+  font-family: var(--font-d);
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.remaining .remaining-sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.remaining-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.remaining-list li {
+  font-family: var(--font-m);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.remaining-list li::before {
+  content: '·';
+  color: var(--accent2);
+  font-size: 1rem;
+}
+
+.remaining-list li.done {
+  color: rgba(122,144,180,0.45);
+  border-color: rgba(30,47,80,0.5);
+}
+
+.remaining-list li.done::before {
+  content: '✓';
+  color: #3A7A50;
+  font-size: 0.75rem;
+}
+
+/* ── ABOUT STRIP (matches index.html) ─────────────────────────────────── */
+.about-strip {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 4rem 2rem;
+  background: var(--surface);
+}
+
+.about-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about-left .about-bio {
+  font-family: var(--font-d);
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.about-left p {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 0.85rem;
+}
+
+.stat-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.stat-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.stat-list li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.stat-list .stat-n {
+  font-family: var(--font-d);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-list .stat-l {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+/* ── DOMAIN TAGS ──────────────────────────────────────────────────────── */
+.domain-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 1.25rem;
+}
+
+.tag {
+  font-family: var(--font-m);
+  font-size: 10px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  letter-spacing: 0.06em;
+}
+
+/* ── FOOTER ───────────────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-brand {
+  font-family: var(--font-m);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.footer-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--white); }
+
+/* ── RESPONSIVE ───────────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  .intro-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .breakdown-grid { grid-template-columns: 1fr; }
+  .figure-pair { grid-template-columns: 1fr; }
+  .remaining-list { grid-template-columns: repeat(2, 1fr); }
+  .lb-prev { left: -0.5rem; }
+  .lb-next { right: -0.5rem; }
+}
+
+@media (max-width: 640px) {
+  .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .remaining-list { grid-template-columns: 1fr; }
+  .nav-links { display: none; }
+  footer { flex-direction: column; text-align: center; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand"><a href="/"><span>farson</span>online.com</a></div>
+  <ul class="nav-links">
+    <li><a href="/#work">Work</a></li>
+    <li><a href="/#lab">Lab</a></li>
+    <li><a href="/#ideas">Ideas</a></li>
+    <li><a href="/goat/" class="active">Gearhead</a></li>
+    <li><a href="https://linkedin.com/in/tonyfarson" target="_blank">LinkedIn</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">Gearhead</div>
+    <h1 class="hero-title">The <em>GOAT</em></h1>
+    <p class="hero-sub">A decade-long frame-off restomod of a 1968 FJ40 Land Cruiser — every bolt earned, every weld deliberate, every compromise refused.</p>
+    <span class="hero-badge">1968 FJ40 &nbsp;·&nbsp; Frame-Off Restomod &nbsp;·&nbsp; Est. 2017</span>
+  </div>
+</div>
+
+<!-- NARRATIVE & QUICK SPECS -->
+<section id="story">
+  <div class="section-label">The Story</div>
+  <h2 class="section-title">How this started — and why it never stopped</h2>
+
+  <div class="intro-grid">
+    <div class="intro-body">
+      <p>My love for the FJ40 started in the fall of 1988 at age twelve — rattling through the Mojave Desert in the back of one, hitting my head on everything, and absolutely loving every second of it. A few years later it became the first off-road vehicle, the first vehicle I ever drove. Something about them stuck.</p>
+      <p>Years of naval service and international adventures followed, including an overland run from Darwin to Melbourne <strong>exclusively on dirt roads</strong> in the Northern Territory — behind the wheel of various Land Cruisers across thousands of miles. I finally got my own in 2017: a battered but running 1968 FJ40 that I planned to give a modest mechanical refresh. The truck had other plans.</p>
+      <figure class="build-figure" onclick="openLb(0)">
+        <img src="assets/01-teardown.jpg" alt="Early teardown — engine compartment opened, taking stock of the project" loading="lazy" />
+        <figcaption>2018 · Acquisition — A running but battered FJ40 starting to give up its secrets.</figcaption>
+      </figure>
+      <p>What started as a Stage II restoration quickly revealed itself as a <em>full frame-off restomod</em>. Beneath the green paint: excessive bondo masking untreated rust, shoddy wiring, a failed engine, damaged steering, and compromised axle assemblies. The deeper I dug, the more I found. So I committed. Every component stripped, inspected, rebuilt, or replaced. <strong>No shortcuts. No bondo.</strong></p>
+      <figure class="build-figure" onclick="openLb(1)">
+        <img src="assets/03-into-pieces.jpg" alt="All body panels removed and laid out across the garage" loading="lazy" />
+        <figcaption>2018 · Disassembly — Every panel and component catalogued. No going back from here.</figcaption>
+      </figure>
+      <p>The build philosophy: <em>keep the heart of the Land Cruiser Toyota.</em> Upgrade where it makes sense — but without sacrificing what makes these trucks legends. The GOAT, Greatest Off-road All-terrain, is nearly ready to prove that out on the trail.</p>
+      <div class="domain-tags">
+        <span class="tag">1968 FJ40</span>
+        <span class="tag">Frame-Off Restomod</span>
+        <span class="tag">2F Engine</span>
+        <span class="tag">Holley Sniper EFI</span>
+        <span class="tag">H41 4-Speed</span>
+        <span class="tag">Orion Transfer Case</span>
+        <span class="tag">ARB Lockers</span>
+        <span class="tag">RCV Axles</span>
+        <span class="tag">Hi-Steer</span>
+        <span class="tag">80:1 Crawl Ratio</span>
+        <span class="tag">BFG M/T KM2</span>
+        <span class="tag">Sundune White</span>
+      </div>
+    </div>
+
+    <aside class="spec-sidebar">
+      <div class="sidebar-label">Build At a Glance</div>
+      <ul class="spec-list">
+        <li>
+          <span class="spec-key">Vehicle</span>
+          <span class="spec-val">1968 Toyota FJ40</span>
+        </li>
+        <li>
+          <span class="spec-key">Engine</span>
+          <span class="spec-val">1978 2F — Remanufactured</span>
+        </li>
+        <li>
+          <span class="spec-key">Induction</span>
+          <span class="spec-val">Holley Sniper 2bbl EFI</span>
+        </li>
+        <li>
+          <span class="spec-key">Transmission</span>
+          <span class="spec-val">1978 H41 4-Speed</span>
+        </li>
+        <li>
+          <span class="spec-key">Transfer Case</span>
+          <span class="spec-val">Orion 4:1 Twin Stick</span>
+        </li>
+        <li>
+          <span class="spec-key">Crawl Ratio Target</span>
+          <span class="spec-val">80:1</span>
+        </li>
+        <li>
+          <span class="spec-key">Differentials</span>
+          <span class="spec-val">ARB Lockers · 4.10 Gears</span>
+        </li>
+        <li>
+          <span class="spec-key">Front Axles</span>
+          <span class="spec-val">RCV Premium · Fine Spline</span>
+        </li>
+        <li>
+          <span class="spec-key">Tires</span>
+          <span class="spec-val">35×12.5 BFG M/T KM2</span>
+        </li>
+        <li>
+          <span class="spec-key">Steering</span>
+          <span class="spec-val">Saginaw Power · Hi-Steer</span>
+        </li>
+        <li>
+          <span class="spec-key">Paint</span>
+          <span class="spec-val">T1276 Sundune White</span>
+        </li>
+        <li>
+          <span class="spec-key">Build Start</span>
+          <span class="spec-val">2017</span>
+        </li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- PULL QUOTE -->
+<div style="max-width:960px; margin:0 auto; padding: 0 2rem 4rem;">
+  <div class="pull-quote">
+    <blockquote>
+      Keep the heart of the Land Cruiser Toyota. Upgrade where it makes sense — but without sacrificing what makes these trucks legends. The goal was never a show truck. The GOAT is a trail rig, built to earn every mile.
+    </blockquote>
+    <cite>— Build Philosophy</cite>
+  </div>
+</div>
+
+<!-- FRAME TRANSITION FIGURES -->
+<div class="figure-block">
+  <div class="figure-pair">
+    <figure class="build-figure" onclick="openLb(2)">
+      <img src="assets/04-stripped.jpg" alt="Bare original frame stripped at a fabrication shop" loading="lazy" />
+      <figcaption>2019 · Frame Work — Bare original frame at the fabrication shop.</figcaption>
+    </figure>
+    <figure class="build-figure" onclick="openLb(3)">
+      <img src="assets/05-frame-up.jpg" alt="Clean powder-coated frame on jack stands with rebuilt axles staged" loading="lazy" />
+      <figcaption>2019 · Foundation — Restored, powder-coated frame back in the garage.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="lbBackdrop(event)">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLb()" aria-label="Close">&times;</button>
+    <button class="lb-nav lb-prev" onclick="shiftLb(-1)" aria-label="Previous">&#8249;</button>
+    <button class="lb-nav lb-next" onclick="shiftLb(1)" aria-label="Next">&#8250;</button>
+    <img class="lb-img" id="lb-img" src="" alt="" />
+    <p class="lb-caption" id="lb-caption"></p>
+  </div>
+</div>
+
+<!-- BUILD BREAKDOWN -->
+<section id="build">
+  <div class="section-label">Under the Skin</div>
+  <h2 class="section-title">What went into it</h2>
+  <p class="section-intro">Every major system was stripped, inspected, and rebuilt or replaced. Nothing was bolted back on without earning its place.</p>
+
+  <div class="breakdown-grid">
+
+    <div class="breakdown-card">
+      <div class="breakdown-card__watermark">ENGINE</div>
+      <div class="breakdown-card__icon">Powertrain</div>
+      <h3>Remanufactured 1978 2F</h3>
+      <p>Block hot tanked, magnafluxed, decked, and line honed. Head remanufactured with upgraded valve springs. A custom camshaft was built for improved low-end torque, and a custom crankshaft profile increases stroke. The assembly was balanced to extend the power band, then finished with a Holley Sniper 2bbl EFI system, performance distributor, and custom exhaust.</p>
+      <figure class="build-figure" onclick="openLb(4)">
+        <img src="assets/06-Out%20with%20the%20old.jpg" alt="Decommissioning the original drivetrain" loading="lazy" />
+        <figcaption>Out With the Old — The original powertrain coming out for the last time.</figcaption>
+      </figure>
+      <figure class="build-figure" onclick="openLb(5)">
+        <img src="assets/07-new-drivetrain.jpg" alt="Remanufactured 2F engine on an engine stand" loading="lazy" />
+        <figcaption>In With the New — Reman 2F finished on the stand.</figcaption>
+      </figure>
+    </div>
+
+    <div class="breakdown-card">
+      <div class="breakdown-card__watermark">TRANS</div>
+      <div class="breakdown-card__icon">Transmission &amp; Transfer</div>
+      <h3>H41 4-Speed + Orion 4:1 Twin Stick</h3>
+      <p>A 1978 H41 transmission with a super-low 4.843:1 first gear was fully rebuilt. Paired with a custom-built 4:1 twin-stick transfer case. Together with the 4.10 ring and pinion and ARB lockers, the targeted crawl ratio is 80:1 — enough low-speed mechanical advantage for technical terrain without an aftermarket axle swap.</p>
+    </div>
+
+    <div class="breakdown-card">
+      <div class="breakdown-card__watermark">AXLES</div>
+      <div class="breakdown-card__icon">Axles, Differentials &amp; Brakes</div>
+      <h3>1978 Fine-Spline Assemblies — Rebuilt</h3>
+      <p>Both 1978 axle assemblies fully rebuilt, providing stronger fine-spline shafts over the original coarse-spline units. The front received RCV premium axle shafts for added strength, mini-truck outers for improved brakes and larger steering knuckles. The rear received a disc brake conversion. Both assemblies carry 4.10 gears and ARB air lockers. Wheels blasted, powder coated, and wrapped in 35×12.5 BFG M/T KM2s.</p>
+      <figure class="build-figure" onclick="openLb(6)">
+        <img src="assets/17-Wheel%20facelift.jpg" alt="Stock wheels stripped, blasted, and powder coated" loading="lazy" />
+        <figcaption>2020 · Wheel Facelift — Stock wheels blasted and powder coated for KM2 rubber.</figcaption>
+      </figure>
+      <figure class="build-figure" onclick="openLb(7)">
+        <img src="assets/19-bolt%20and%20nut.jpg" alt="Hardware and fasteners catalogued during reassembly" loading="lazy" />
+        <figcaption>2020 · Hardware — Every fastener earns its place. The thousand small details.</figcaption>
+      </figure>
+    </div>
+
+    <div class="breakdown-card">
+      <div class="breakdown-card__watermark">SUSP</div>
+      <div class="breakdown-card__icon">Suspension &amp; Steering</div>
+      <h3>Spring-Under · Extended Wheelbase</h3>
+      <p>Spring-under leaf configuration to honor the original design intent. Custom springs with the axles pushed two inches front and rear — extending the wheelbase for improved stability and approach/departure angles. Rear shackle mounts rotated 180 degrees, adding four inches of articulation travel with FJ55 rear springs. Extended shock towers welded in. A Saginaw-style power steering box with remote reservoir and a custom hi-steer system completes the package.</p>
+    </div>
+
+    <div class="breakdown-card">
+      <div class="breakdown-card__watermark">BODY</div>
+      <div class="breakdown-card__icon">Body &amp; Paint</div>
+      <h3>T1276 Sundune White · DTM Mastic</h3>
+      <p>Rust addressed at the rockers, door frames, lower sill, and firewall. Over a hundred holes patched. Rear wheel openings moved back 2.5 inches to center the tires after the axle push. New dash sheet metal with a custom center panel. Paint is single-stage PPG DTM Mastic — strong, abrasion-resistant, and repairable on the trail. Undercarriage coated in LizardSkin Sound Control and Thermal Barrier, then topcoated with body-color Raptor Liner.</p>
+      <figure class="build-figure" onclick="openLb(8)">
+        <img src="assets/20-Body%20work.jpg" alt="Body panels under repair — patched and prepped, no filler" loading="lazy" />
+        <figcaption>2020 · Body Work — Rust addressed, panels patched. No filler, no shortcuts.</figcaption>
+      </figure>
+      <figure class="build-figure" onclick="openLb(9)">
+        <img src="assets/23-Fabwork.jpg" alt="Custom fabrication — sheet metal work and panel relocations" loading="lazy" />
+        <figcaption>2022 · Fabrication — Custom dash sheet metal and rear-wheel-opening relocations.</figcaption>
+      </figure>
+      <figure class="build-figure" onclick="openLb(10)">
+        <img src="assets/24-Test%20fit.jpg" alt="Mock body assembly to verify clearances before paint" loading="lazy" />
+        <figcaption>2021 · Test Fit — Mock assembly to validate every clearance before paint.</figcaption>
+      </figure>
+      <figure class="build-figure" onclick="openLb(11)">
+        <img src="assets/27-Paint.jpg" alt="T1276 Sundune White single-stage paint applied" loading="lazy" />
+        <figcaption>2022 · Paint — T1276 Sundune White, single-stage PPG DTM Mastic.</figcaption>
+      </figure>
+      <figure class="build-figure" onclick="openLb(12)">
+        <img src="assets/28-Paint.JPG" alt="Painted body panels — strong, repairable, period-correct color" loading="lazy" />
+        <figcaption>2022 · Paint — Strong, abrasion-resistant, repairable on the trail.</figcaption>
+      </figure>
+    </div>
+
+    <div class="breakdown-card">
+      <div class="breakdown-card__watermark">CABIN</div>
+      <div class="breakdown-card__icon">Interior &amp; Accessories</div>
+      <h3>Functional Retro — No Compromises</h3>
+      <p>Front buckets sourced from an FJ62 and restored in period-correct brown and tan upholstery with dense memory foam and seat heaters. A RetroSound digital media receiver with dash-mounted 3.5" speakers and custom roll cage corner boxes for 6×9s. Vintage Air Builder Series A/C, heat, and defrost. Aviation sun visors. Tuffy center console. RAM mount for GPS or tablet. Floors coated in LizardSkin and covered in durable outdoor carpet.</p>
+      <figure class="build-figure" onclick="openLb(13)">
+        <img src="assets/29-Interior.jpg" alt="Interior in progress — FJ62 buckets and period-correct trim" loading="lazy" />
+        <figcaption>2021 · Interior — FJ62 buckets restored in period-correct brown and tan.</figcaption>
+      </figure>
+      <figure class="build-figure" onclick="openLb(14)">
+        <img src="assets/39-Interior.jpg" alt="Cabin nearing completion with retro-functional fitments" loading="lazy" />
+        <figcaption>2022 · Interior — Functional retro. Every detail considered.</figcaption>
+      </figure>
+    </div>
+
+  </div>
+
+  <!-- WHAT'S LEFT -->
+  <div class="remaining">
+    <h3>What's Left</h3>
+    <p class="remaining-sub">The finish line is close. Remaining items are final assembly — not rebuild work.</p>
+    <ul class="remaining-list">
+      <li class="done">Engine</li>
+      <li class="done">Transmission</li>
+      <li class="done">Transfer Case</li>
+      <li class="done">Axle Assemblies</li>
+      <li class="done">Frame &amp; Suspension</li>
+      <li class="done">Body Work</li>
+      <li class="done">Paint</li>
+      <li class="done">Interior</li>
+      <li>Drivelines</li>
+      <li>Exhaust</li>
+      <li>Brake Lines</li>
+      <li>Fuel Lines</li>
+      <li>Electrical</li>
+      <li>Front Bumper / Winch</li>
+      <li>Rear Bumper / Spare</li>
+      <li>Sliders</li>
+      <li>Lights</li>
+      <li>First Trail Run</li>
+    </ul>
+  </div>
+</section>
+
+<!-- CLOSING IMAGE -->
+<div class="figure-block">
+  <figure class="build-figure" onclick="openLb(15)">
+    <img src="assets/Rollin.jpg" alt="The GOAT under its own power, wheels turning" loading="lazy" />
+    <figcaption>2024 · Current — Wheels turning. Miles ahead.</figcaption>
+  </figure>
+</div>
+
+<!-- ABOUT STRIP (matches index.html pattern) -->
+<div class="about-strip">
+  <div class="about-inner">
+    <div class="about-left">
+      <p class="about-bio">"Keep the heart of the Land Cruiser Toyota."</p>
+      <p>That single sentence governed every decision in this build — engine selection, suspension geometry, cosmetic choices. When in doubt: what would the engineers who designed this truck recognize as honoring their intent?</p>
+      <p>The GOAT isn't a resto-pure build and it isn't an all-out race rig. It's a restomod in the truest sense: modern reliability and purpose-built capability wearing period-correct clothes. It will look like a 1968 FJ40. It will drive like something built to last another fifty years.</p>
+    </div>
+    <ul class="stat-list">
+      <li>
+        <span class="stat-n">7+</span>
+        <span class="stat-l">Years of active build time — and counting</span>
+      </li>
+      <li>
+        <span class="stat-n">80:1</span>
+        <span class="stat-l">Target crawl ratio — final four-wheel drive low</span>
+      </li>
+      <li>
+        <span class="stat-n">35"</span>
+        <span class="stat-l">BFG M/T KM2 tires wrapped around powder-coated Rock Crusher wheels</span>
+      </li>
+      <li>
+        <span class="stat-n">0</span>
+        <span class="stat-l">Ounces of bondo remaining anywhere on this truck</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">farsononline.com &nbsp;&bull;&nbsp; Reno, NV</div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="/heal">HEAL Framework</a>
+    <a href="https://linkedin.com/in/tonyfarson" target="_blank">LinkedIn</a>
+    <a href="mailto:ajfarson@gmail.com">Contact</a>
+  </div>
+</footer>
+
+<!-- LIGHTBOX SCRIPT -->
+<script>
+const images = [
+  { src: 'assets/01-teardown.jpg',           cap: '2018 · Acquisition — A running but battered FJ40 starting to give up its secrets.' },
+  { src: 'assets/03-into-pieces.jpg',        cap: '2018 · Disassembly — Every panel and component catalogued. No going back from here.' },
+  { src: 'assets/04-stripped.jpg',           cap: '2019 · Frame Work — Bare original frame at the fabrication shop.' },
+  { src: 'assets/05-frame-up.jpg',           cap: '2019 · Foundation — Restored, powder-coated frame back in the garage.' },
+  { src: 'assets/06-Out with the old.jpg',   cap: 'Out With the Old — The original powertrain coming out for the last time.' },
+  { src: 'assets/07-new-drivetrain.jpg',     cap: 'In With the New — Reman 2F finished on the stand.' },
+  { src: 'assets/17-Wheel facelift.jpg',     cap: '2020 · Wheel Facelift — Stock wheels blasted and powder coated for KM2 rubber.' },
+  { src: 'assets/19-bolt and nut.jpg',       cap: '2020 · Hardware — Every fastener earns its place. The thousand small details.' },
+  { src: 'assets/20-Body work.jpg',          cap: '2020 · Body Work — Rust addressed, panels patched. No filler, no shortcuts.' },
+  { src: 'assets/23-Fabwork.jpg',            cap: '2022 · Fabrication — Custom dash sheet metal and rear-wheel-opening relocations.' },
+  { src: 'assets/24-Test fit.jpg',           cap: '2021 · Test Fit — Mock assembly to validate every clearance before paint.' },
+  { src: 'assets/27-Paint.jpg',              cap: '2022 · Paint — T1276 Sundune White, single-stage PPG DTM Mastic.' },
+  { src: 'assets/28-Paint.JPG',              cap: '2022 · Paint — Strong, abrasion-resistant, repairable on the trail.' },
+  { src: 'assets/29-Interior.jpg',           cap: '2021 · Interior — FJ62 buckets restored in period-correct brown and tan.' },
+  { src: 'assets/39-Interior.jpg',           cap: '2022 · Interior — Functional retro. Every detail considered.' },
+  { src: 'assets/Rollin.jpg',                cap: '2024 · Current — Wheels turning. Miles ahead.' },
+];
+
+let current = 0;
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lb-img');
+const lbCap = document.getElementById('lb-caption');
+
+function openLb(i) {
+  current = i;
+  lbImg.src = images[i].src;
+  lbImg.alt = images[i].cap;
+  lbCap.textContent = images[i].cap;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLb() {
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function shiftLb(dir) {
+  current = (current + dir + images.length) % images.length;
+  lbImg.src = images[current].src;
+  lbImg.alt = images[current].cap;
+  lbCap.textContent = images[current].cap;
+}
+
+function lbBackdrop(e) {
+  if (e.target === lb) closeLb();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft')  shiftLb(-1);
+  if (e.key === 'ArrowRight') shiftLb(1);
+});
+</script>
+
+</body>
+</html>
