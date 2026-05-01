@@ -19,6 +19,25 @@
 
 ---
 
+## [2026-05-01] — Asset Link Fix (CC Session)
+
+**Summary:** Short follow-up session to execute the asset link fix that the
+initial-launch entry below had pre-described. Confirmed CLAUDE.txt / JOURNAL.txt
+context with the user before closing.
+
+**Changes made:**
+- heal/index.html: updated 4 link instances to point to `assets/` subdirectory
+  - Hero buttons: HEAL-Whitepaper.docx, HEAL-Executive-Brief.pdf
+  - Downloads section: HEAL-Whitepaper.docx, HEAL-Executive-Brief.pdf
+- User handled the commit/push for this change directly (no CC git activity
+  this session).
+
+**Open items:**
+- Same standing items as the initial-launch entry below — none newly opened or
+  closed this session.
+
+---
+
 ## [2026-05-01] — Initial Site Launch
 
 **Summary:** Full site built and deployed from scratch. farsononline.com is live on
