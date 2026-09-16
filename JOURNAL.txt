@@ -19,6 +19,36 @@
 
 ---
 
+## [2026-09-16] — Site Favicon (CC Session)
+
+**Summary:** Added a favicon across the whole site, then diagnosed a stuck
+Cloudflare Pages deployment that was masking the change.
+
+**Changes made:**
+- Converted user-supplied `farsononline_favicon.png` (1254×1254) via
+  ImageMagick into `favicon.ico` (16/32/48px, repo root — required there
+  for browser auto-discovery at `/favicon.ico`) plus `assets/favicon-32x32.png`,
+  `assets/favicon-16x16.png`, and `assets/apple-touch-icon.png` (180x180)
+- Added `<link rel="icon">` / `<link rel="apple-touch-icon">` tags (root-relative
+  paths) to the `<head>` of all four real pages: index.html, goat/index.html,
+  heal/index.html, tinkertown/lab.html
+- Committed as f94547d, pushed to origin/main
+- Cloudflare Pages' build for f94547d hung in "in_progress" for 30+ minutes
+  with an empty build log (user confirmed via Cloudflare dashboard — looked
+  like a bad/stuck build, not a code issue). Pushing an empty commit
+  (c6a532d) triggered a fresh build that succeeded normally and the
+  favicon went live. The original stuck deployment never resolved
+  (dashboard still shows it "deploying" and refuses to cancel — cosmetic
+  only, superseded by c6a532d, not affecting the live site).
+
+**Open items:**
+- None newly opened. Closes the "Consider adding a proper favicon" item
+  from the Initial Site Launch entry below.
+- If a Cloudflare Pages build hangs empty again in the future, an empty
+  commit is a known quick fix — no need to hunt for a cause in-repo first.
+
+---
+
 ## [2026-05-01] — Homepage Polish, Tinkertown, and The GOAT (CC Session)
 
 **Summary:** Long working session. Rebuilt the homepage hero, shipped two
